@@ -1,0 +1,50 @@
+<table class="table cart-table table-responsive-xs">
+  <thead>
+    <tr class="table-head">
+      <th *ngFor="let col of columns" scope="col">{{col}}</th>
+      <th scope="col">action</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let item of data.data">
+    <tr>
+      <td class="table-line" *ngFor="let col of columns">
+        <!-- DIVERSIFICAR DADOS -->
+        <h4>
+          {{item[col]}}
+        </h4>
+      </td>
+      <!-- <td>
+        <a
+          [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">{{ product.title | titlecase }}</a>
+        <div class="mobile-cart-content row">
+          <div class="col-xs-3">
+            <div class="qty-box">
+              <div class="input-group">
+                <input type="text" name="quantity" class="form-control input-number" disabled
+                  [(ngModel)]="product.quantity">
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-3">
+            <h2 class="td-color">
+              {{ (product.price | discount:product) * productService?.Currency.price | currency:productService?.Currency.currency:'symbol' }}
+            </h2>
+          </div>
+          <div class="col-xs-3">
+            <h2 class="td-color">
+              <a (click)="removeItem(product)" class="icon">
+                <i class="ti-close"></i>
+              </a>
+            </h2>
+          </div>
+        </div>
+      </td> -->
+      <td>
+        <button type="button" class="btn btn-default" aria-label="Left Align" (click)="selectData(item)">
+          <span class="fa fa-plus" aria-hidden="true"></span>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+aqui vem componente de paginação0

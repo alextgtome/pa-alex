@@ -1,0 +1,88 @@
+<form [formGroup]="form">
+  <ng-container [ngSwitch]="question.controlType">
+    <div *ngSwitchCase="'textbox'" [class]="'form-group col-md-12'">
+      <label for="question.key" *ngIf="question.showLabel">{{'LABELS.' + question.label | translate}}</label>
+      <input [type]="question.type" class="form-control" [id]="question.key"
+        [placeholder]="'PLACEHOLDERS.' + question.label | translate" [mask]="question.mask" [showMaskTyped]="true"
+        [formControlName]="question.key" [required]="question.required">
+      <bfv-messages></bfv-messages>
+    </div>
+
+    <div *ngSwitchCase="'dropdown'" [class]="'form-group col-md-12'">
+      <label for="question.key" *ngIf="question.showLabel">{{'LABELS.' + question.label | translate}}</label>
+      <select [id]="question.key" class="form-control" [formControlName]="question.key" [required]="question.required">
+        <option *ngIf="!question.multiple" value="">
+          {{'PLACEHOLDERS.'+ question.placeholder | translate}}
+        </option>
+        <option *ngFor="let opt of question.options" [value]="opt.key">
+          {{question.enum ? ('ENUMS.'+ opt.value | translate) : opt.value }}
+        </option>
+      </select>
+      <bfv-messages></bfv-messages>
+    </div>
+
+    <div *ngSwitchCase="'radio'" [class]="'radio col-md-12'">
+      <h5 for="question.key" *ngIf="question.showLabel">{{'LABELS.' + question.label | translate}}</h5>
+      <div class="row">
+        <div class="col-md-6" *ngFor="let opt of question.options;let i = index;">
+          <input [formControlName]="question.key" type="radio" [id]="question.key+i" [value]="opt.key">
+          <label [for]="question.key+i">{{question.enum ? ('ENUMS.'+ opt.value | translate) : opt.value }}</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- <mat-form-field *ngSwitchCase="'textbox'" appearance="outline" floatLabel="always">
+      <mat-error *ngIf="form.get(question.key).hasError('required')">
+        {{'MESSAGES.FIELD_REQUIRED' | translate}}
+      </mat-error> 
+    </mat-form-field>
+
+
+    <mat-form-field *ngSwitchCase="'textarea'" appearance="outline" floatLabel="always"> 
+      <mat-label>{{'LABELS.'+ question.label | translate}}</mat-label>
+      <textarea matInput [id]="question.key" [name]="question.key" [formControlName]="question.key"
+        [rows]="question.rows" [placeholder]="'PLACEHOLDERS.' + question.placeholder | translate"></textarea>
+      <mat-error *ngIf="form.get(question.key).hasError('required')">
+        {{'MESSAGES.FIELD_REQUIRED' | translate}}
+      </mat-error>
+    </mat-form-field>
+
+
+    
+
+    <mat-form-field *ngSwitchCase="'dropdown'" appearance="outline" floatLabel="always">
+      <mat-label>{{'LABELS.'+ question.label | translate}}</mat-label>
+      <mat-select [id]="question.key" [formControlName]="question.key" [multiple]="question.multiple"
+        [placeholder]="'PLACEHOLDERS.' + question.placeholder | translate">
+        <mat-option *ngIf="!question.multiple" value="">
+          {{'PLACEHOLDERS.'+ question.placeholder | translate}}
+        </mat-option>
+        <mat-option *ngFor="let opt of question.options" [value]="opt.key">
+          {{question.enum ? ('ENUMS.'+ opt.value | translate) : opt.value }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get(question.key).hasError('required')">
+        {{'MESSAGES.FIELD_REQUIRED' | translate}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-slide-toggle *ngSwitchCase="'slide-toggle'" [formControlName]="question.key" class="mb-24"
+      (change)="changeSlideToggle(question.key)">
+      {{'LABELS.'+ question.label | translate}}
+    </mat-slide-toggle>
+
+    <mat-form-field *ngSwitchCase="'chip'" appearance="outline" floatLabel="always">
+      <mat-label>{{'LABELS.'+ question.label | translate}}</mat-label>
+      <mat-chip-list #chipList>
+        <mat-chip *ngFor="let chip of chips" [selectable]="question.selectable" [removable]="question.removable"
+          (removed)="removeChip(chip)">
+          {{chip}}
+          <mat-icon matChipRemove *ngIf="question.removable">cancel</mat-icon>
+        </mat-chip>
+        <input [placeholder]="'PLACEHOLDERS.' + question.placeholder | translate" [formControlName]="question.key"
+          [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="addChip($event)">
+      </mat-chip-list>
+    </mat-form-field> -->
+  </ng-container>
+</form>

@@ -1,0 +1,31 @@
+server:
+  port: 8181
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: ecommerce
+      auto-index-creation: true
+      authentication-database: admin
+      password: root
+      username: root
+  devtools:
+    restart:
+      enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    request:
+      exchange:
+        producer: ex.producer.payment-queue
+      routing-key:
+        producer: rk.producer.payment-queue
+      dead-letter:
+        producer: dl.producer.payment-queue
+      parking-lot:
+        producer: pl.producer.payment-queue
+      listener:
+        time-retry: 00 39 22 * * *

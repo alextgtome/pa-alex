@@ -1,0 +1,35 @@
+<app-breadcrumb [title]="'LOGIN'" [breadcrumb]="'LOGIN'"></app-breadcrumb>
+<!-- section start -->
+<section class="login-page section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h3>{{'TITLES.LOGIN' | translate}}</h3>
+                <div class="theme-card">
+                    <div class="theme-form row" [loader]="isLoading">
+                        <ng-container *ngFor="let question of questions">
+                            <dynamic-form [question]="question" [form]="form" [class]="'p-0 ' + question.cssClass">
+                            </dynamic-form>
+                        </ng-container>
+                        <div class="col-md-12">
+                            <a [routerLink]="['/pages/forget/password']"
+                                class="forgot-password">{{'LINKS.FORGOT_PASSWORD' | translate}}</a>
+                        </div>
+                        <form type class="form-group col-md-12">
+                            <button (click)="login()" class="btn btn-solid" [disabled]="form.invalid">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 right-login">
+                <h3>{{'TITLES.NEW_CUSTOMER' | translate}}</h3>
+                <div class="theme-card authentication-right">
+                    <h6 class="title-font">{{'TITLES.CREATE_ACCOUNT' | translate}}</h6>
+                    <p>{{'DESCRIPTIONS.CREATE_ACCOUNT' | translate}}</p>
+                    <a [routerLink]="['/pages/register']" class="btn btn-solid">{{'BUTTONS.REGISTER' | translate}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Section ends-->

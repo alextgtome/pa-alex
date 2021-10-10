@@ -1,0 +1,95 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: "Payment Gateway Configuration"
+tags:
+  - name: "payment-controller"
+    description: "Provide an api to do payment with gateway"
+schemes:
+  - "https"
+  - "http"
+paths:
+  /payment-controller:
+    post:
+      operationId: "creditCardPayment"
+      tags:
+        - "payment-gateway-controller"
+      summary: "Register a credit card payment"
+      description: "Register simple credit card payment and insert in rabbitMQ"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "paymentGateway"
+          description: "Payment gateway"
+          required: true
+          schema:
+            $ref: "#/definitions/Payment"
+      responses:
+        201:
+          description: "Payment gateway created"
+          schema:
+            $ref: "#/definitions/Payment"
+        401:
+          description: "Authorization Failed"
+        400:
+          description: "Bad Request"
+        404:
+          description: "Resource not found"
+definitions:
+  CreditCard:
+    type: "object"
+    properties:
+      cardNumber:
+        type: "string"
+        description: "Buyer’s Card Number."
+        example: "1234123412341231"
+        maxLength: 19
+        minLength: 19
+      holder:
+        type: "string"
+        description: "Buyer’s name printed on the card."
+        example: "Teste Holder"
+      expirationDate:
+        type: "string"
+        description: "Expiry date printed on card."
+        example: "12/2030"
+      securityCode:
+        type: "string"
+        description: "Security code printed on back of card."
+        example: "123"
+      brand:
+        type: "string"
+        description: "Card issuer (Visa / Master / Amex / Elo / Aura / JCB / Diners / Discover / Hipercard / Hiper)."
+        example: "Visa"
+  Payment:
+    type: "object"
+    properties:
+      currency:
+        type: "string"
+        description: "Currency in which payment will be made (BRL)."
+        example: "BRL"
+      country:
+        type: "string"
+        description: "Country where payment will be made."
+        example: "BRA"
+      Type:
+        type: "string"
+        description: "Type of the Payment Method."
+        example: "CreditCard"
+      Amount:
+        type: "string"
+        description: "Order Amount (to be sent in cents)."
+        example: 15700
+      installments:
+        type: "string"
+        description: "Number of installments."
+        example: 1
+      softDescriptor:
+        type: "string"
+        description: "Text printed on buyer’s bank invoice - Available only for VISA/MASTER - does not allow special characters - See Attachment"
+        example: "123456789ABCD"
+      creditCard:
+        $ref: "#/definitions/CreditCard"

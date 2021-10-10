@@ -1,0 +1,27 @@
+<section class="ssdata-page">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2" *ngIf="!hasData">
+            <h3>{{'TITLES.SEARCH_DATA' | translate }}</h3>
+            <form class="theme-form" [loader]="isLoading">
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <ng-container *ngFor="let question of questions">
+                            <dynamic-form [question]="question" [form]="form"
+                                [class]="'dynamic-form p-0 ' + question.cssClass">
+                            </dynamic-form>
+                        </ng-container>
+                    </div>
+                    <button (click)="searchData()" class="btn btn-solid"
+                        [disabled]="form.invalid">{{'BUTTONS.SEARCH' | translate}}</button>
+                </div>
+            </form>
+        </div>
+
+        <div *ngIf="hasData" class="col-sm-12">
+            <h3>{{'TITLES.SELECT_DATA' | translate }}</h3>
+            <app-table-list [columns]="serviceProvided.metadata" [data]="data" (dataSelected)="selectData($event)">
+            </app-table-list>
+        </div>
+    </div>
+</section>
+<!--Section ends-->

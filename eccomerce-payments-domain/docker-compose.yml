@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  eureka-server:
+    build:
+      context: ./
+    image: e-commerce-payments-domain
+    restart: always
+    ports:
+      - "8181:8181"

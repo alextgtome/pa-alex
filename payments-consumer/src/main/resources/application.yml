@@ -1,0 +1,35 @@
+server:
+  port: 8182
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    request:
+      exchange:
+        producer: ex.producer.payment-queue
+      routing-key:
+        producer: rk.producer.payment-queue
+      dead-letter:
+        producer: dl.producer.payment-queue
+      parking-lot:
+        producer: pl.producer.payment-queue
+      listener:
+        time-retry: 00 39 22 * * *
+cielo:
+  keys:
+    merchantId: 599dc4d7-8b00-4caa-af1e-6f5c7c1c60a8
+    merchantKey: RGSZZIQABXNCOQNZKRKCFNWDUKUQSGTIKJICLUML
+
+getnet:
+  url: https://api-sandbox.getnet.com.br
+  keys:
+    username: 13b04274-68da-437e-aea9-bc9df8f0325e
+    password: 55d5218c-266f-4ff4-ab0f-01515f243f0c
+    scope: oob
+    grantType: client_credentials
+    sellerId: 2076d039-fade-4a08-80bb-7833cc9d30a0
+
+payment:
+  vendor: ${PAYMENT_VENDOR}
